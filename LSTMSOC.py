@@ -36,6 +36,8 @@ class BatteryStatePredictor(nn.Module):
         return out
 
     def train_model(self, dataloader, criterion, optimizer, epochs=10):
+        losses = []  # List to store losses at each epoch
+
         # Training loop
         for epoch in range(epochs):
             for inputs, labels in dataloader:
@@ -46,6 +48,9 @@ class BatteryStatePredictor(nn.Module):
                 optimizer.step()
 
             print(f"Epoch {epoch+1}/{epochs}, Loss: {loss.item()}")
+            losses.append(loss.item())  # Save the loss of this epoch
+
+        return losses
 
 
 if __name__ == "__main__":
